@@ -1,0 +1,95 @@
+{
+  "entities": {
+    "Resource": {
+      "title": "Resource",
+      "description": "A bookable campus facility or piece of equipment.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string", "enum": ["LECTURE_HALL", "LAB", "MEETING_ROOM", "EQUIPMENT"] },
+        "capacity": { "type": "number" },
+        "location": { "type": "string" },
+        "availability": { "type": "string" },
+        "status": { "type": "string", "enum": ["ACTIVE", "OUT_OF_SERVICE"] },
+        "metadata": { "type": "object" }
+      },
+      "required": ["name", "type", "location", "status"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "A user's request for a resource.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "resourceId": { "type": "string" },
+        "userId": { "type": "string" },
+        "startTime": { "type": "string", "format": "date-time" },
+        "endTime": { "type": "string", "format": "date-time" },
+        "purpose": { "type": "string" },
+        "attendees": { "type": "number" },
+        "status": { "type": "string", "enum": ["PENDING", "APPROVED", "REJECTED", "CANCELLED"] },
+        "rejectionReason": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["resourceId", "userId", "startTime", "endTime"]
+    },
+    "Ticket": {
+      "title": "Incident Ticket",
+      "description": "A maintenance or fault report.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "resourceId": { "type": "string" },
+        "location": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "priority": { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH", "URGENT"] },
+        "status": { "type": "string", "enum": ["OPEN", "IN_PROGRESS", "RESOLVED", "CLOSED", "REJECTED"] },
+        "reporterId": { "type": "string" },
+        "assigneeId": { "type": "string" },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "resolutionNotes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["category", "description", "priority", "status", "reporterId"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "System notification for users.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string" },
+        "read": { "type": "boolean" },
+        "link": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "message", "read"]
+    },
+    "User": {
+      "title": "User",
+      "description": "System user information and roles.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["USER", "ADMIN", "TECHNICIAN"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/resources/{resourceId}": { "schema": "Resource", "description": "Campus resources catalogue" },
+    "/bookings/{bookingId}": { "schema": "Booking", "description": "Resource booking records" },
+    "/tickets/{ticketId}": { "schema": "Ticket", "description": "Incident and maintenance tickets" },
+    "/notifications/{notificationId}": { "schema": "Notification", "description": "User notifications" },
+    "/users/{userId}": { "schema": "User", "description": "User profiles and roles" },
+    "/tickets/{ticketId}/comments/{commentId}": { "schema": "object", "description": "Comments on tickets" }
+  }
+}
