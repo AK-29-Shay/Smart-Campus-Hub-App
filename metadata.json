@@ -2,5 +2,7 @@
   "name": "Smart Campus Hub",
   "description": "A comprehensive platform for managing campus facilities, bookings, and maintenance requests with role-based access.",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

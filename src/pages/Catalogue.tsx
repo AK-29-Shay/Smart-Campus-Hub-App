@@ -51,10 +51,10 @@ export default function Catalogue() {
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="px-12 pb-12 max-w-full overflow-x-hidden"
+      className="px-4 sm:px-8 md:px-12 pb-12 max-w-full overflow-x-hidden"
     >
       {/* Filtering Interface */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 border-t border-b border-zinc-200 py-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 border border-zinc-200 bg-white p-4 sm:p-6 md:p-8">
         <div className="flex flex-col gap-2">
           <label className="text-[10px] font-mono font-bold text-zinc-400 tracking-widest uppercase">Filter_by_Type</label>
           <div className="flex flex-wrap gap-2">
@@ -115,7 +115,7 @@ export default function Catalogue() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filtered.map((resource) => (
           <ResourceCard key={resource.id} resource={resource} />
         ))}
